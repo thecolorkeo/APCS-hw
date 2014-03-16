@@ -1,0 +1,40 @@
+//NOT FUNCTIONAL, ENCOUNTERED MULTIPLE ISSUES AND TOO TIRED TO CONTINUE
+
+import java.util.Random;
+public class QuickSelect{
+    public int quickselect(int[] a, int k, int low, int high){
+	if (low >= high){
+	    return a[high + ((low - high)/2)];
+	}else{
+	    int index = 0;
+	    int z = 0;
+	    Random r = new Random();
+	    index = r.nextInt(a.length);
+	    int[]b = new int[a.length];
+	    for(int i = low; i < high; i++){
+		if (a[i] < a[index]){
+		    b[i] = a[i];
+		}else if (a[i] == a[index]){
+		    b[i] = a[index];
+		    z = i;
+		}else if (a[i] > a[index]){
+		    b[i] = a[i];
+		}
+	    }if (b[z] == k){
+		return index;
+	    }else if(b[z] > k){
+		return quickselect(b, k, 0, z-1);
+	    }else{
+		return quickselect(b, k, z-1, b.length-z);
+	    }
+	}
+    }
+
+    public static void main(String[] args) {
+	QuickSelect q = new QuickSelect();
+	for (int i = 0; i < 10; i++) {
+	    int[] a = {9, 8, 7, 6, 5, 0, 1, 2, 3, 4};
+	    System.out.println(q.quickselect(a, i, 0, a.length) + "\n");
+	}
+    }
+}

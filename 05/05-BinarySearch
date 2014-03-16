@@ -1,0 +1,20 @@
+import java.util.*;
+public class BinarySearch{
+     public static int binarySearchIterative(int e, int[] a) {
+	int start = 0, end = a.length;
+	for (;;) {
+	    if ((a.length - 0) < 1){
+		return -1;
+	    }
+	    if (e == a[(start + end) / 2]) {
+		return (start + end) / 2;
+	    }
+	    if (e < a[(start + end) / 2]) {
+		end = (start + end) / 2;
+	    }
+	    if (e > a[(start + end) / 2]) {
+		start = (start + end / 2) + 1;
+	    }
+	}
+    }    
+}
