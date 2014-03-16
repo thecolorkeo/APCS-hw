@@ -1,0 +1,67 @@
+import java.util.*;
+import java.util.Random;
+public class MergeSort1{
+    public <E extends Comparable<E>> ArrayList<E>  Merge(ArrayList<E> a, ArrayList<E> b){
+	ArrayList<E> result = new ArrayList<E>();
+        int i = 0;
+	while(i < result.size()){
+	    if(b.size() == 0){
+		result.add(a.remove(0));
+		i++;
+	    }else if(a.size() == 0){
+		result.add(b.remove(0));
+		i++;
+	    }else if(a.get(0).compareTo(b.get(0)) == -1){
+		result.add(a.remove(0));
+		i++;
+	    }else if(a.get(0).compareTo(b.get(0)) == 1){
+		result.add(b.remove(0));
+		i++;
+	    }else if(a.get(0).compareTo(b.get(0)) == 0){
+		result.add(b.remove(0));
+		i++;
+	    }	    
+	}
+	return result;
+    }
+    
+     public <E extends Comparable<E>> ArrayList<E> MergeSort(ArrayList<E> array){
+	 ArrayList<E> x = new ArrayList<E>(), y = new ArrayList<E>();
+	 if (array.size() < 2){
+	     return array;
+	 }else if(array.size() %2 != 0){
+	     for(int i = 0; i < array.size()/2; i++){
+		 x.add(array.get(i));
+	     }for(int j = 0; j < (array.size()/2+1); j++){
+		 y.add(array.get(array.size()/2+1+j));
+	     }
+	     return Merge(x,y);
+	 }else if(array.size() %2 == 0){	
+	     for(int i = 0; i < array.size()/2; i++){
+		 x.add(array.get(i));
+	     }for(int j = 0; j < (array.size()/2); j++){
+		 y.add(array.get(array.size()/2+j));
+	     }
+	     return Merge(x,y);
+	}else{
+	    return array;
+	}
+    }
+    
+    public static void main(String[]args){
+	ArrayList<String> a = new ArrayList();
+	ArrayList<String> b = new ArrayList();
+	Random random = new Random();
+	MergeSort1 m = new MergeSort1();
+	final String[] ALPHABET = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+	for (int i = 0; i < 10; i++) {
+	    a.add(ALPHABET[random.nextInt(26)]);
+	    b.add(ALPHABET[random.nextInt(26)]);
+	}
+	System.out.println(a);
+	System.out.println(b);
+	System.out.println(m.MergeSort(a));
+		  
+    }
+    
+}

@@ -1,0 +1,106 @@
+import java.util.Random;
+
+public class MergeSort{
+    private boolean up = false;
+    public static int[] Merge(int[]a, int[]b){
+	int[]result = new int[a.length + b.length];
+	int i = 0, j = 0, k = 0;
+	while(i < result.length){
+	    if(b.length - k == 0){
+		result[i] = a[j];
+		i++;
+		j++;
+	    }else if(a.length - j == 0){
+		result[i] = b[k];
+		i++;
+		k++;
+	    }else if(a[j] < b[k]){
+		result[i] = a[j];
+		i++;
+		j++;
+	    }else if(a[j] > b[k]){
+		result[i] = b[k];
+		i++;
+		k++;
+	    }else if(a[j] == b[k]){
+		result[i] = b[k];
+		i++;
+		k++;
+	    }	    
+	}
+	return result;
+    }
+    public int[] MergeSort(int[]array){	
+	
+	int[]x = new int[array.length/2], y = new int[array.length/2], z = new int[array.length/2+1], zz = new int[3];
+	if (array.length < 2){
+	    return array;
+	}else if(array.length %2 != 0){
+	        System.arraycopy(array, 0, x,0, array.length/2);
+		System.arraycopy(array, array.length/2, z,0, array.length/2+1);
+		x = MergeSort(x);
+		z = MergeSort(z);
+		return Merge(x,z);
+	}else if(up == false){	
+		System.arraycopy(array, 0, x,0, array.length/2);
+		System.arraycopy(array, array.length/2, y,0, array.length/2);
+		x = MergeSort(x);
+		y = MergeSort(y);
+		return Merge(x,y);
+	}else{
+	    return array;
+	}
+    }
+    public int[] fill(int[]a){
+	for(int i = 0; i < a.length; i++){
+	    a[i] =(int) (Math.random() * 20000);
+	}
+	return a;
+    }
+    public static void main(String[]args){
+	int[]a = new int[100];
+	int[]b = new int[1000];
+	int[]c = new int[10000];
+	int[]d = new int[10000000];
+	int[]e = new int[100000000];
+
+	MergeSort m = new MergeSort();
+
+	a = m.fill(a);
+	b = m.fill(b);
+	c = m.fill(c);
+	d = m.fill(d);
+	e = m.fill(e);
+
+	System.out.println("Random integer generator range from 0-20000");
+	final long startTime = System.currentTimeMillis();
+	m.MergeSort(a);	    
+	final long endTime = System.currentTimeMillis();
+	System.out.println("Total execution time for one hundred: " + (endTime - startTime) );
+
+	final long startTime1 = System.currentTimeMillis();
+	m.MergeSort(b);	    
+	final long endTime1 = System.currentTimeMillis();
+	
+	System.out.println("Total execution time for one thousand: " + (endTime1 - startTime1) );
+
+	final long startTime2 = System.currentTimeMillis();
+	m.MergeSort(c);	    
+	final long endTime2 = System.currentTimeMillis();
+	
+	System.out.println("Total execution time for ten thousand: " + (endTime2 - startTime2) );
+
+	final long startTime3 = System.currentTimeMillis();
+	m.MergeSort(d);	    
+	final long endTime3 = System.currentTimeMillis();
+	
+	System.out.println("Total execution time for ten million: " + (endTime3 - startTime3) );
+	
+	final long startTime4 = System.currentTimeMillis();
+	m.MergeSort(e);	    
+	final long endTime4 = System.currentTimeMillis();
+	
+	System.out.println("Total execution time for 100 million: " + (endTime4 - startTime4) );
+	
+    }
+}

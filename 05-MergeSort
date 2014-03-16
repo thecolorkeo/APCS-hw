@@ -1,0 +1,111 @@
+import java.util.*;
+
+public class MergeSort1{
+    public boolean up = false;
+    public <E extends Comparable<E>> ArrayList<E> Merge(ArrayList<E> a, ArrayList<E> b){
+	int i = 0, j = 0;
+	ArrayList<E> result = new ArrayList<E>();
+	while ((i < a.size()) && (j < b.size())) {
+	    if (a.get(i).compareTo(b.get(j)) < 0) {
+		result.add(a.get(i++));
+	    }else {
+		result.add(b.get(j++));
+	    }
+	}
+	while (i < a.size()) {
+	    result.add(a.get(i++));}
+	while (j < b.size()) {
+	    result.add(b.get(j++));}
+	return result;
+    }
+    
+    public <E extends Comparable<E>> ArrayList<E> MergeSort(ArrayList<E> array){
+	ArrayList<E> x = new ArrayList<E>(), y = new ArrayList<E>();
+	if (array.size() < 2){
+	    return array;
+	}else if(array.size() %2 != 0){
+	    for(int i = 0; i < array.size()/2; i++){
+		x.add(array.get(i));
+	    }for(int j = 0; j < (array.size()/2+1); j++){
+		y.add(array.get(array.size()/2+j));
+	    }
+	    x = MergeSort(x);
+	    y = MergeSort(y);
+	    return Merge(x,y);
+	}else if(array.size() %2 == 0 && array.size() > 1){
+	    for(int i = 0; i < array.size()/2; i++){
+		x.add(array.get(i));
+	    }for(int j = 0; j < (array.size()/2); j++){
+		y.add(array.get(array.size()/2+j));
+	    }
+	    x = MergeSort(x);
+	    y = MergeSort(y);
+	    return Merge(x,y);
+	}
+	return array;
+    }
+
+    public static int[] ArrayMerge(int[]a, int[]b){
+	int[]result = new int[a.length + b.length];
+	int i = 0, j = 0, k = 0;
+	while(i < result.length){
+	    if(b.length - k == 0){
+		result[i] = a[j];
+		i++;
+		j++;
+	    }else if(a.length - j == 0){
+		result[i] = b[k];
+		i++;
+		k++;
+	    }else if(a[j] < b[k]){
+		result[i] = a[j];
+		i++;
+		j++;
+	    }else if(a[j] > b[k]){
+		result[i] = b[k];
+		i++;
+		k++;
+	    }else if(a[j] == b[k]){
+		result[i] = b[k];
+		i++;
+		k++;
+	    }	    
+	}
+	return result;
+    }
+    public int[] ArraySort(int[]array){	
+
+	int[]x = new int[array.length/2], y = new int[array.length/2], z = new int[array.length/2+1], zz = new int[3];
+	if (array.length < 2){
+	    return array;
+	}else if(array.length %2 != 0){
+	        System.arraycopy(array, 0, x,0, array.length/2);
+		System.arraycopy(array, array.length/2, z,0, array.length/2+1);
+		x = ArraySort(x);
+		z = ArraySort(z);
+		return ArrayMerge(x,z);
+	}else if(up == false){	
+		System.arraycopy(array, 0, x,0, array.length/2);
+		System.arraycopy(array, array.length/2, y,0, array.length/2);
+		x = ArraySort(x);
+		y = ArraySort(y);
+		return ArrayMerge(x,y);
+	}else{
+	    return array;
+	}
+    }
+    public static void main(String[]args){
+	ArrayList<Person> a = new ArrayList<Person>();
+	MergeSort1 m = new MergeSort1();
+
+	Random random = new Random();
+	final String[] ALPHABET = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+	for(int i = 0; i < 20; i++){
+	    a.add(new Person(random.nextInt(20),ALPHABET[random.nextInt(26)]));
+	}
+	System.out.println(m.MergeSort(a));
+    }
+}
+    
+
+
